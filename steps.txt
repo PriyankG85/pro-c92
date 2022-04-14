@@ -1,0 +1,15 @@
+-> Install these required libraries << react-native-webview, react-native-canvas, react-native-gesture-handler, react-native-safe-area-context, @react-navigation/drawer, @react-navigation/native, @react-navigation/stack, @react-navigation/bottom-tabs, expo-font, expo-app-loading, expo-google-app-auth, firebase >> ✅
+
+-> Implement all the needed navigations like, Stack Navigator, Drawer Navigator, Bottom Tab Navigator. ✅
+
+-> Add these screens to the screens folder << Login, SignUp, Register, Home, Account_Details, Create_Drawing, Search_Artists >> ✅
+
+-> Inside of App.js Add the Component <Auth_Navigator />
+
+-> Now inside of Login and SignUp screens implement the firebase-auth And expo-google-app-auth library to the Login Screen Only!
+
+-> Then Display all of the Artist's Arts in the Home Screen!
+
+-> Implement the `react-native-canvas` inside the Create_Drawing.js
+
+-> The App is Done 🙂!!
