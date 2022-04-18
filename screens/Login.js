@@ -16,7 +16,7 @@ import {
 import { logInAsync } from "expo-google-app-auth";
 import { app } from "../firebase";
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const auth = getAuth(app);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,8 +28,10 @@ const Login = () => {
   const logInWithGoogle = async () => {
     const result = await logInAsync({
       behavior: "web",
-      androidClientId: "", // TODO: Provide this!
-      iosClientId: "", // TODO: Provide this!
+      androidClientId:
+        "16187266545-s8p9vvarm1h7hl27eb7r870d8p3jsos7.apps.googleusercontent.com",
+      iosClientId:
+        "16187266545-0rvk6fo0sme33gjffufltmdcfejcndse.apps.googleusercontent.com",
       scopes: ["profile", "email"],
     });
 
@@ -63,7 +65,11 @@ const Login = () => {
         placeholder={"Your Email's Password"}
       />
 
-      <TouchableOpacity style={styles.button} onPress={logInWithEmail}>
+      <TouchableOpacity
+        disabled={email.length === 0 || password.length === 0}
+        style={styles.button}
+        onPress={logInWithEmail}
+      >
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
@@ -76,6 +82,16 @@ const Login = () => {
       >
         <Text style={styles.googleLoginText}>Sign in With Google</Text>
       </TouchableOpacity>
+
+      <View style={styles.bottomTextContainer}>
+        <Text style={styles.bottomText}>Don't have any account!</Text>
+        <TouchableOpacity
+          style={styles.bottomBtn}
+          onPress={() => navigation.push("SignUp")}
+        >
+          <Text style={styles.bottomBtnText}>Signup</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -135,6 +151,24 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#fff",
     fontWeight: "bold",
+  },
+
+  bottomTextContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 40,
+  },
+
+  bottomText: {
+    fontSize: 16,
+  },
+
+  bottomBtn: {
+    paddingLeft: 6,
+  },
+
+  bottomBtnText: {
+    color: "#4285f4",
   },
 });
 

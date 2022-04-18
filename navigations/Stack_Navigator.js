@@ -6,7 +6,10 @@ import SignUp from "../screens/SignUp";
 const Stack = createStackNavigator();
 
 const Stack_Navigator = () => (
-  <Stack.Navigator initialRouteName="Login">
+  <Stack.Navigator
+    initialRouteName="Login"
+    screenOptions={{ headerShown: false }}
+  >
     <Stack.Screen name="Login" component={Login} />
     <Stack.Screen name="SignUp" component={SignUp} />
   </Stack.Navigator>

@@ -6,39 +6,51 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { app } from "../firebase";
 
-const SignUp = () => {
+const SignUp = ({ navigation }) => {
   const auth = getAuth(app);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const logInWithEmail = () => {
-    signInWithEmailAndPassword(auth, email, password);
+    createUserWithEmailAndPassword(auth, email, password);
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>SignUp</Text>
-
       <TextInput
         textContentType="emailAddress"
         style={styles.input}
         onChangeText={(e) => setEmail(e)}
         placeholder={"Your Email"}
       />
-
       <TextInput
+        secureTextEntry
         textContentType="password"
         style={styles.input}
         onChangeText={(e) => setPassword(e)}
         placeholder={"Your Email's Password"}
       />
-
-      <TouchableOpacity style={styles.button} onPress={logInWithEmail}>
+      <TouchableOpacity
+        disabled={email.length === 0 || password.length === 0}
+        style={styles.button}
+        onPress={logInWithEmail}
+      >
         <Text style={styles.buttonText}>Signin</Text>
       </TouchableOpacity>
+
+      <View style={styles.bottomTextContainer}>
+        <Text style={styles.bottomText}>Already have an account!</Text>
+        <TouchableOpacity
+          style={styles.bottomBtn}
+          onPress={() => navigation.push("Login")}
+        >
+          <Text style={styles.bottomBtnText}>Login</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -78,6 +90,24 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 17,
     fontWeight: "bold",
+  },
+
+  bottomTextContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 40,
+  },
+
+  bottomText: {
+    fontSize: 16,
+  },
+
+  bottomBtn: {
+    paddingLeft: 6,
+  },
+
+  bottomBtnText: {
+    color: "#4285f4",
   },
 });
 

@@ -2,11 +2,11 @@
 
 -> Implement all the needed navigations like, Stack Navigator, Drawer Navigator, Bottom Tab Navigator. ✅
 
--> Add these screens to the screens folder << Login, SignUp, Register, Home, Account_Details, Create_Drawing, Search_Artists >> ✅
+-> Add these screens to the screens folder << Login, SignUp, Register, Home, Account_Details, Create_Drawing, Search_Artists, Settings >> ✅
 
--> Inside of App.js Add the Component <Auth_Navigator />
+-> Inside of App.js Add the Component <Auth_Navigator /> ✅
 
--> Now inside of Login and SignUp screens implement the firebase-auth And expo-google-app-auth library to the Login Screen Only!
+-> Now inside of Login and SignUp screens implement the firebase-auth And expo-google-app-auth library to the Login Screen Only! ✅
 
 -> Then Display all of the Artist's Arts in the Home Screen!
 

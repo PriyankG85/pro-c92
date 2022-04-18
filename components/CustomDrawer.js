@@ -7,10 +7,10 @@ import {
 
 const CustomDrawer = (props) => (
   <View style={{ flex: 1 }}>
-    <View style={{ alignItems: "center", paddingVertical: 20 }}>
+    <View style={{ alignItems: "center", paddingTop: 60 }}>
       <Image
-        style={{ width: "70%", height: "70%" }}
-        source={{ uri: require("../assets/favicon.png") }}
+        style={{ width: 100, height: 100 }}
+        source={require("../assets/favicon.png")}
       />
     </View>
 

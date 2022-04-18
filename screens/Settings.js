@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 
-const Account_Details = () => {
+const Settings = () => {
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 26 }}>Your Accounts Details</Text>
+      <Text style={{ fontSize: 30 }}>Settings Screen</Text>
     </View>
   );
 };
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Account_Details;
+export default Settings;
