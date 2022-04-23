@@ -1,3 +1,4 @@
+import { SafeAreaView, Platform, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -14,25 +15,26 @@ const Auth_Navigator = () => {
   const [loading, setLoading] = useState(true);
   const [userAddedInDb, setUserAddedInDb] = useState(false);
 
-  const checkUserIsExisting = async (currentUser) => {
+  const checkUserIsExisting = (currentUser) => {
     const allUsers = [];
 
-    onSnapshot(collection(db, "users")).then((users) =>
-      users.docs.forEach((user) => {
+    onSnapshot(collection(db, "users"), (users) => {
+      users.forEach((user) => {
         allUsers.push(user.data().email);
 
-        !allUsers.includes(currentUser.email)
+        !allUsers.includes(currentUser?.email)
           ? setUserAddedInDb(false)
           : setUserAddedInDb(true);
-      })
-    );
+      });
+
+      setLoading(false);
+    });
   };
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       checkUserIsExisting(currentUser);
-      setLoading(false);
     });
   }, []);
 
@@ -41,7 +43,12 @@ const Auth_Navigator = () => {
   }
 
   return (
-    <>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+      }}
+    >
       <NavigationContainer>
         {!user ? (
           <Stack_Navigator />
@@ -51,7 +58,7 @@ const Auth_Navigator = () => {
           <Drawer_Navigator />
         )}
       </NavigationContainer>
-    </>
+    </SafeAreaView>
   );
 };
 

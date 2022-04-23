@@ -8,8 +8,8 @@
 
 -> Now inside of Login and SignUp screens implement the firebase-auth And expo-google-app-auth library to the Login Screen Only! ✅
 
--> Then Display all of the Artist's Arts in the Home Screen!
-
 -> Implement the `react-native-canvas` inside the Create_Drawing.js
+
+-> Then Display all of the Artist's Arts in the Home Screen!
 
 -> The App is Done 🙂!!

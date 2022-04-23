@@ -1,16 +1,32 @@
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import React, { useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { app, db } from "../firebase";
+import { getAuth } from "firebase/auth";
 
 const Register = () => {
+  const currentUser = getAuth(app).currentUser;
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [about, setAbout] = useState("");
 
   const onSubmit = () => {
-    const docRef = getDoc(doc(db, "users"));
+    const docRef = doc(db, "users", currentUser.uid);
+
+    setDoc(docRef, {
+      email: currentUser.email,
+      name,
+      age,
+      gender,
+      about,
+    });
   };
 
   return (
@@ -24,6 +40,7 @@ const Register = () => {
       />
       <TextInput
         style={styles.input}
+        keyboardType="numeric"
         onChangeText={(e) => setAge(e)}
         placeholder="Your Age!"
         placeholderTextColor="#495057"
@@ -40,6 +57,10 @@ const Register = () => {
         placeholder="About Yourself!"
         placeholderTextColor="#495057"
       />
+
+      <TouchableOpacity style={styles.btn} onPress={() => onSubmit()}>
+        <Text style={styles.btnText}>Submit</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -49,6 +70,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#fff",
   },
 
   title: {
@@ -63,6 +85,20 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     padding: 8,
     fontSize: 16,
+  },
+
+  btn: {
+    width: "80%",
+    backgroundColor: "#495057",
+    padding: 10,
+    borderRadius: 6,
+    marginVertical: 30,
+  },
+
+  btnText: {
+    color: "#fff",
+    fontSize: 18,
+    textAlign: "center",
   },
 });
 

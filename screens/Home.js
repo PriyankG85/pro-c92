@@ -1,17 +1,20 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
 import { app, db } from "../firebase";
 import { getAuth } from "firebase/auth";
-import { collectionGroup } from "firebase/firestore";
+import { collectionGroup, doc, onSnapshot } from "firebase/firestore";
+import Header from "../components/Header";
 
-const Home = () => {
-  const currentUser = getAuth(app).currentUser;
+const Home = ({ navigation }) => {
+  const auth = getAuth(app);
+  const currentUser = auth.currentUser;
   const [usersArts, setUsersArts] = useState([]);
+  const [userDetails, setUserDetails] = useState(null);
 
   const getArts = () => {
     const allArts = [];
 
-    onSnapshot(collectionGroup(db, "arts")).then((arts) =>
+    onSnapshot(collectionGroup(db, "arts"), (arts) =>
       arts.docs.forEach((art) => {
         allArts.push(art.data());
       })
@@ -20,36 +23,32 @@ const Home = () => {
     setUsersArts(allArts);
   };
 
-  // const checkUserIsExisting = async () => {
-  //   const allUsers = [];
+  const getUserDetails = () => {
+    const docRef = doc(db, "users", currentUser.uid);
 
-  //   const snapshot = await getDocs(collection(db, "users")).then((users) =>
-  //     users.docs.forEach((user) => allUsers.push(user.data().email))
-  //   );
+    onSnapshot(docRef, (user) => setUserDetails(user.data()));
+  };
 
-  //   if (!allUsers.includes(currentUser.email)) {
-  //     // User does not exist in db!
-
-  //     setDoc(doc(db, "users", currentUser.uid), {
-  //       email: currentUser.email,
-  //       name:
-  //         currentUser.displayName === ""
-  //           ? currentUser.email.slice(0, currentUser.email.indexOf("@"))
-  //           : currentUser.displayName,
-  //     });
-  //   }
-  // };
-
-  useEffect(() => checkUserIsExisting(), []);
+  useEffect(() => {
+    getUserDetails();
+    getArts();
+  }, []);
 
   return (
-    <View style={styles.container}>
-      <Text style={{ fontSize: 20 }}>Hi! {currentUser.email}</Text>
+    <View style={styles.screen}>
+      <Header navigation={navigation} />
+      <View style={styles.container}>
+        <Text style={{ fontSize: 20 }}>Hi! {userDetails?.name}</Text>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
+
   container: {
     flex: 1,
     justifyContent: "center",
