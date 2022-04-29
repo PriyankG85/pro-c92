@@ -4,6 +4,7 @@ import { app, db } from "../firebase";
 import { getAuth } from "firebase/auth";
 import { collectionGroup, doc, onSnapshot } from "firebase/firestore";
 import Header from "../components/Header";
+import PostItem from "../components/PostItem";
 
 const Home = ({ navigation }) => {
   const auth = getAuth(app);
@@ -38,7 +39,11 @@ const Home = ({ navigation }) => {
     <View style={styles.screen}>
       <Header navigation={navigation} />
       <View style={styles.container}>
-        <Text style={{ fontSize: 20 }}>Hi! {userDetails?.name}</Text>
+        {/* <Text style={{ fontSize: 20 }}>Hi! {userDetails?.name}</Text> */}
+
+        {usersArts.map((art) => (
+          <PostItem artInfo={art} />
+        ))}
       </View>
     </View>
   );
@@ -51,8 +56,7 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    paddingHorizontal: 7,
   },
 });
 

@@ -3,10 +3,15 @@ import React from "react";
 
 const Header = ({ navigation }) => (
   <View style={styles.container}>
-    <Text style={styles.title}>DigiArts</Text>
+    <TouchableOpacity
+      activeOpacity={0.5}
+      onPress={() => navigation.toggleDrawer()}
+    >
+      <Text style={styles.title}>DigiArts</Text>
+    </TouchableOpacity>
 
     <View style={styles.rightContainer}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.push("SearchArtists")}>
         <Image
           style={styles.searchImg}
           source={{
@@ -15,7 +20,7 @@ const Header = ({ navigation }) => (
         />
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.push("CreateDrawing")}>
+      <TouchableOpacity onPress={() => navigation.push("NewPost")}>
         <Image
           style={styles.addImg}
           source={{
@@ -29,7 +34,6 @@ const Header = ({ navigation }) => (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 15,
     flexDirection: "row",
     justifyContent: "space-between",

@@ -23,14 +23,24 @@ const SignUp = ({ navigation }) => {
       <Text style={styles.title}>SignUp</Text>
       <TextInput
         textContentType="emailAddress"
-        style={styles.input}
+        style={
+          email.length === 0
+            ? { ...styles.input, borderColor: "red", borderWidth: 1.7 }
+            : !email.includes("@gmail.com")
+            ? { ...styles.input, borderColor: "red", borderWidth: 1.7 }
+            : styles.input
+        }
         onChangeText={(e) => setEmail(e)}
         placeholder={"Your Email"}
       />
       <TextInput
         secureTextEntry
         textContentType="password"
-        style={styles.input}
+        style={
+          password.length === 0
+            ? { ...styles.input, borderColor: "red", borderWidth: 1.7 }
+            : styles.input
+        }
         onChangeText={(e) => setPassword(e)}
         placeholder={"Your Email's Password"}
       />
